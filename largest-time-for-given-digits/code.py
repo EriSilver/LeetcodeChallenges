@@ -4,23 +4,35 @@ class Solution(object):
         :type arr: List[int]
         :rtype: str
         """
-        template = [2,3,5,9]
-        done = [None, None, None, None]
         array = arr[:]
-        for e in arr + array:
-            for o in range(4):
-                b = e <= template[o] if o != 1 else (e <= 9 and e >= 0 and (done[0] or 0) + (done[1] or 0) < 24)
-                if e in array and e >= (done[o] or 0) and b and e >= 0:
-                    tmp = done[o]
-                    done[o] = e
-                    array.remove(e)
-                    if tmp != None:
-                        array += [tmp]            
-            
-        string = ""    
-        for i in done:
-            if i == None:
+        array.sort(reverse=True)
+        
+        first = -1
+        for e in array:
+            if e <= 2:
+                first = e * 10
+                array.remove(e)
+                break
+        
+        if first == -1:
+            return ""
+        
+        for e in array:
+            if first + e <= 23:
+                first += e
+                array.remove(e)
+                break
+                
+        if len(array) > 2:
+            return ""
+        
+        second = ""
+        
+        if array[0] <= 5:
+            second += (str(array[0]) + str(array[1]))
+        else:
+            if array[1] > 5:
                 return ""
-            string += str(i)
-         
-        return string[:2] + ":" + string[2:]
+            second += (str(array[1]) + str(array[0]))
+            
+        return (str(first) if first > 9 else "0" + str(first)) + ":" + second
