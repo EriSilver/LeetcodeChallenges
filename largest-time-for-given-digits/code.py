@@ -1,4 +1,10 @@
 class Solution(object):
+    def stringFormat(self, num):
+        if num >= 10:
+            return str(num)
+        else:
+            return "0" + str(num)
+        
     def largestTimeFromDigits(self, arr):
         """
         :type arr: List[int]
@@ -6,33 +12,23 @@ class Solution(object):
         """
         array = arr[:]
         array.sort(reverse=True)
+        print(array)
         
-        first = -1
-        for e in array:
-            if e <= 2:
-                first = e * 10
-                array.remove(e)
-                break
-        
-        if first == -1:
-            return ""
-        
-        for e in array:
-            if first + e <= 23:
-                first += e
-                array.remove(e)
-                break
-                
-        if len(array) > 2:
-            return ""
-        
-        second = ""
-        
-        if array[0] <= 5:
-            second += (str(array[0]) + str(array[1]))
-        else:
-            if array[1] > 5:
-                return ""
-            second += (str(array[1]) + str(array[0]))
+        for e in range(4):
+            first = array[e] * 10 + array[(e + 1) % 4]
+            second = array[(e + 2) % 4] * 10 + array[(e + 3) % 4]
             
-        return (str(first) if first > 9 else "0" + str(first)) + ":" + second
+            print(first, second)
+            if first > 23 and second > 59:
+                return ""
+            elif first <= 23 and second <= 59:
+                return self.stringFormat(first) + ":" + self.stringFormat(second)
+            else:
+                if e == 3:
+                    first = array[e] * 10 + array[(e + 1) % 4]
+                    second = array[(e + 3) % 4] * 10 + array[(e + 2) % 4]
+                    print(first, second)
+                    if first <= 23 and second <= 59:
+                        return self.stringFormat(first) + ":" + self.stringFormat(second)
+        
+        return ""
