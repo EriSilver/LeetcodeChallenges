@@ -10,12 +10,14 @@ class NumArray(object):
         
         i = 0
         self.numsLen = len(nums)
-        theInt = self.numsLen // 20
-        theFloat = self.numsLen / 20
+        self.divisible = 1500 if self.numsLen > 1500 else (self.numsLen // 1000  or self.numsLen // 500  or self.numsLen // 100  or self.numsLen // 10  or self.numsLen // 2 or 1)
+        
+        theInt = self.numsLen // self.divisible
+        theFloat = self.numsLen / self.divisible
         
         for i in range((theInt + 1 if theFloat > theInt else theInt) + 1):
-            start = i * 20
-            end = (i + 1) * 20
+            start = i * self.divisible
+            end = (i + 1) * self.divisible
             if end > self.numsLen:
                 end = self.numsLen
             self.sums += [sum(nums[start  : end])]
@@ -27,7 +29,7 @@ class NumArray(object):
         :rtype: None
         """
         
-        self.sums[index//20] += (val - self.nums[index])
+        self.sums[index//self.divisible] += (val - self.nums[index])
         self.nums[index] = val
         
 
@@ -35,17 +37,17 @@ class NumArray(object):
     def extremity(self, left, right):
         
         # right excluded 
-        if right - left > 10:
+        if right - left > self.divisible / 2:
             count = 0
-            partition = left // 20
-            numsIndex = partition * 20
+            partition = left // self.divisible
+            numsIndex = partition * self.divisible
             # exclude the sum of the extremities 
             #right is wanted - left to be excluded 
             if numsIndex < left:
                 count += (self.sums[partition] - sum(self.nums[numsIndex: left]))
             else: 
                 #left is wanted - right to be excluded
-                numsIndex += 20
+                numsIndex += self.divisible
                 if numsIndex > self.numsLen:
                       numsIndex = self.numsLen
                 count += (self.sums[partition] - sum(self.nums[right: numsIndex]))
@@ -61,20 +63,20 @@ class NumArray(object):
         :rtype: int
         """
         count = 0
-        isSamePartition = left // 20 == right // 20
+        isSamePartition = left // self.divisible == right // self.divisible
         # the left extremity |------#######|######
         # the right part is wanted and left to be excluded
-        lastLeft = (20 - (left % 20)) + left
+        lastLeft = (self.divisible - (left % self.divisible)) + left
         count += self.extremity(left, lastLeft if not isSamePartition else right + 1)
         
         if not isSamePartition:
             # the right extremity #####|#######------|
             # the left part is wanted and right to be excluded
-            firstRight = right - (right % 20)
+            firstRight = right - (right % self.divisible)
             count += self.extremity(firstRight if not isSamePartition else left, right + 1)  
             
-            start = lastLeft // 20
-            end = firstRight // 20 
+            start = lastLeft // self.divisible
+            end = firstRight // self.divisible 
             while start < end:
                 count += self.sums[start]
                 start += 1
@@ -87,3 +89,13 @@ class NumArray(object):
 # obj = NumArray(nums)
 # obj.update(index,val)
 # param_2 = obj.sumRange(left,right)
+
+"""
+Runtime: 1264 ms, faster than 98.20% of Python online submissions for Range Sum Query - Mutable.
+Memory Usage: 32 MB, less than 83.78% of Python online submissions for Range Sum Query - Mutable.
+
+____________________
+*All Time:*     
+Accepted: 166,230    
+Submissions: 435,247
+"""
