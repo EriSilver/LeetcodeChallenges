@@ -36,8 +36,6 @@ class Solution(object):
             ignore = []
 
             first, second = self.iteration(array, ignore)
-            if first == None and second == None:
-                return ""
             for i in range(4):
                 if first == None and second == None:
                     return ""
@@ -66,12 +64,12 @@ class Solution(object):
 
 #evaluation
 '''
-Runtime: 16 ms, faster than 94.92% of Python online submissions for Largest Time for Given Digits.
-Memory Usage: 13.5 MB, less than 49.15% of Python online submissions for Largest Time for Given Digits.
+Runtime: 12 ms, faster than 96.83% of Python online submissions for Largest Time for Given Digits.
+Memory Usage: 13.5 MB, less than 20.64% of Python online submissions for Largest Time for Given Digits.
 
 ###########################################################################################
-The challenge's all people accepted and submissions counts:
-Accepted: 66,530
-Submissions: 185,960
+All time submissions:
+Accepted: 66,576
+Submissions: 186,132
 https://leetcode.com/problems/largest-time-for-given-digits/submissions/
 '''
