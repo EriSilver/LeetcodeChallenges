@@ -8,7 +8,6 @@ class Solution(object):
         
         vowelsCopy = vowels[:]
         count = 0
-        i = -1
         repeats = 1
         lastIndex = -1
     
@@ -17,25 +16,33 @@ class Solution(object):
             if e in vowels:
                 if e in vowelsCopy:
                     vowelsCopy.remove(e)
-                    if i == -1:
-                        i = n
-                        lastIndex = i
+                    if lastIndex == -1:
+                        lastIndex = n
 
                     if not vowelsCopy:
                         count += repeats
 
                 else:
-                    if e == word[lastIndex]: # palindrome
+                    while word[lastIndex] in word[lastIndex + 1 : n + 1]:
                         repeats += 1
                         lastIndex += 1
 
                     if not vowelsCopy:
                         count += repeats
+                        
             else:
-                i = -1
                 vowelsCopy = vowels[:]
                 repeats = 1
                 lastIndex = -1
-            print("____", count, repeats, lastIndex)
-                        
+                
         return count
+
+
+"""
+Runtime: 16 ms, faster than 96.86% of Python online submissions for Count Vowel Substrings of a String.
+Memory Usage: 13.4 MB, less than 89.24% of Python online submissions for Count Vowel Substrings of a String.
+
+All Time: 
+Accepted: 9,063
+Submissions: 13,691
+"""
