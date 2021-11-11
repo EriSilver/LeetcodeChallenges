@@ -14,29 +14,28 @@ class Solution(object):
     
         for n in range(len(word)):
             e = word[n]
-            if e in vowelsCopy:
-                vowelsCopy.remove(e)
-                if i == -1:
-                    i = n
-                
-                if not vowelsCopy:
-                    count += 1
-                    lastIndex = i + 1
-                print(vowels, vowelsCopy)
-            else:
-                if vowelsCopy:
-                    i = -1
-                    vowelsCopy = vowels[:]
-                    repeats = 1
-                    lastIndex = -1
-                    
+            if e in vowels:
+                if e in vowelsCopy:
+                    vowelsCopy.remove(e)
+                    if i == -1:
+                        i = n
+                        lastIndex = i
+
+                    if not vowelsCopy:
+                        count += 1
+
                 else:
-                    if e in vowels:
-                        if e in word[i: lastIndex + 1]:
-                            repeats += 1
-                            lastIndex = word.index(e, i, lastIndex + 1)
-                            
+                    if e in word[i: lastIndex + 1]: # palindrome
+                        repeats += 1
+                        lastIndex = word.index(e, i, lastIndex + 1)
+
+                    if not vowelsCopy:
                         count += repeats
-                    print("____", count, repeats, lastIndex)
+            else:
+                i = -1
+                vowelsCopy = vowels[:]
+                repeats = 1
+                lastIndex = -1
+            print("____", count, repeats, lastIndex, word[i: lastIndex + 1])
                         
         return count
