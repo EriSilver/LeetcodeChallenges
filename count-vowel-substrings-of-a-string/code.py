@@ -22,12 +22,12 @@ class Solution(object):
                         lastIndex = i
 
                     if not vowelsCopy:
-                        count += 1
+                        count += repeats
 
                 else:
-                    if e in word[i: lastIndex + 1]: # palindrome
+                    if e == word[lastIndex]: # palindrome
                         repeats += 1
-                        lastIndex = word.index(e, i, lastIndex + 1)
+                        lastIndex += 1
 
                     if not vowelsCopy:
                         count += repeats
@@ -36,6 +36,6 @@ class Solution(object):
                 vowelsCopy = vowels[:]
                 repeats = 1
                 lastIndex = -1
-            print("____", count, repeats, lastIndex, word[i: lastIndex + 1])
+            print("____", count, repeats, lastIndex)
                         
         return count
