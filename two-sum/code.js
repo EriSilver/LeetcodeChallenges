@@ -66,7 +66,6 @@ function merge(x,y){
 // recursion - binary search
 // returns index of the remainder
 function binarySearch(array, remainder, startingIndex){
-    //console.log(">>>>>",startingIndex, array, remainder);
     let arrayLength = array.length;
     if (arrayLength === 1){
         if (array[0] === remainder)
@@ -92,18 +91,11 @@ function binarySearch(array, remainder, startingIndex){
 /*********************************/
 var twoSum = function(nums, target) {
     // original indeces before sort
-    indeces = {}
-    for(let i in nums){
-        indeces[nums[i]] = i;
-    }
     let oldnums = [...nums];
     nums = ssort(nums);
-    //console.log(nums);
     for(let i in nums){
-        //console.log("PPPPPPPPPPP",nums, nums.slice(2), i);
         let newArray = nums.slice(parseInt(i)+1);
         let remainder = target - nums[i];
-        //console.log(i, nums[i], newArray);
         let otherIndex = binarySearch(newArray, remainder, parseInt(i) + 1);
 
         if (otherIndex){
@@ -111,7 +103,7 @@ var twoSum = function(nums, target) {
                 return [oldnums.indexOf(nums[i]), oldnums.lastIndexOf(nums[i])];
             }
             else {
-                return[indeces[nums[i]], indeces[nums[otherIndex]]];
+                return [oldnums.indexOf(nums[i]), oldnums.indexOf(nums[otherIndex])];
             }
         }
     }
