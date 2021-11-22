@@ -6,7 +6,7 @@
 
 /*****************************/
 // Merge sort
-function ssort(arr){
+function ssort(arr){ 
     const arrLength = arr.length;
     if (arrLength <= 1)
         return arr
@@ -18,21 +18,17 @@ function ssort(arr){
 }
 
 function merge(x,y){
-    let xx = 0;
-    let yy = 0;
-    let arrxy = [];
-    let xLength = x.length;
-    let yLength = y.length;
+    let xx = 0
+    let yy = 0
+    let arrxy = []
 
-    for ( let e = 0, n = xLength + yLength; e < n; e++){
+    for ( let e in [...x, ...y]){
+        let xLength = x.length;
         let thex = xx < xLength? x[xx]: x[xLength-1];
+        let yLength = y.length;
         let they = yy < yLength?y[yy]: y[yLength-1];
 
-        if (thex > theTarget && they > theTarget){
-            return arrxy;
-        }
-
-        if (thex < they && thex <= theTarget){
+        if (thex < they){
             if (xx < xLength){
                 arrxy = arrxy.concat(thex);
                 xx += 1;
@@ -42,7 +38,7 @@ function merge(x,y){
                 yy += 1;
             }
         }
-        else if (thex > they && they <= theTarget){
+        else if (thex > they){
             if (yy < yLength){
                 arrxy = arrxy.concat(they);
                 yy += 1;
@@ -52,7 +48,7 @@ function merge(x,y){
                 xx += 1;
             }
         }
-        else if (thex <= theTarget){
+        else{
             if( xx < xLength){
                 arrxy = arrxy.concat(thex);
                 xx += 1;
@@ -91,6 +87,34 @@ function binarySearch(array, remainder, startingIndex){
     }
 }
 
+
+var xx = [];
+function largerThanTarget(array, remainder, startingIndex){
+    let arrayLength = array.length;
+    if (arrayLength === 1){
+        if (array[0] === remainder)
+            return startingIndex;
+        else if (array[0] > remainder){
+            xx = xx.slice(0, startingIndex);
+            return;
+        }
+        else
+            return;
+    }
+    else if (arrayLength === 0)
+        return;
+    else {
+        let halfLength = parseInt(arrayLength / 2);
+        if (array[halfLength] === remainder)
+            return startingIndex + halfLength;
+        else if (remainder < array[halfLength]) {
+            xx = xx.slice(0, startingIndex + halfLength);
+            return binarySearch(array.slice(0, halfLength), remainder, startingIndex);
+        }
+    }
+}
+
+
 /*********************************/
 var theTarget = 0;
 var twoSum = function(nums, target) {
@@ -98,10 +122,23 @@ var twoSum = function(nums, target) {
     // original indeces before sort
     let oldnums = [...nums];
     nums = ssort(nums);
+    xx = [...nums];
+    let toSliceHere = largerThanTarget(nums, target - nums[0], 0);
+    if (toSliceHere){
+        if (nums[0] === nums[toSliceHere]){
+            return [oldnums.indexOf(nums[0]), oldnums.lastIndexOf(nums[0])];
+        }
+        else {
+            return [oldnums.indexOf(nums[0]), oldnums.indexOf(nums[toSliceHere])];
+        }
+    }
+
+    nums = xx;
     for(let i in nums){
-        let newArray = nums.slice(parseInt(i)+1);
+        i = parseInt(i);
+        let newArray = nums.slice(i+1);
         let remainder = target - nums[i];
-        let otherIndex = binarySearch(newArray, remainder, parseInt(i) + 1);
+        let otherIndex = binarySearch(newArray, remainder, i + 1);
 
         if (otherIndex){
             if (nums[i] === nums[otherIndex]){
