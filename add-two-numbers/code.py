@@ -11,7 +11,7 @@ def nodeToNum(node, digit=0, num=0):
     return nodeToNum(node.next, digit+1, num)
 
 def numToNode(num, node):
-    n = num - num // 10 * 10
+    n = num % 10
     node.val = n
     num //= 10
     if num == 0:
@@ -39,6 +39,6 @@ class Solution(object):
     Accepted: 2,344,684
     Submissions: 6,279,788
 
-    Runtime: 133 ms, faster than 5.12% of Python online submissions for Add Two Numbers.
-    Memory Usage: 13.7 MB, less than 7.04% of Python online submissions for Add Two Numbers.
+    Runtime: 64 ms, faster than 55.61% of Python online submissions for Add Two Numbers.
+    Memory Usage: 13.7 MB, less than 19.39% of Python online submissions for Add Two Numbers.
 '''
