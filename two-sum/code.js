@@ -93,11 +93,8 @@ function binarySearch(array, remainder, startingIndex){
 
 /*********************************/
 var theTarget = 0;
-var twoSum = function(nums, target) {
-    if (nums.toString().includes("-"))
-        theTarget = 100000000;
-    else
-        theTarget = target;
+var twoSum = function(nums, target, x=target) {
+    theTarget = x;
     // original indeces before sort
     let oldnums = [...nums];
     nums = ssort(nums);
@@ -115,4 +112,13 @@ var twoSum = function(nums, target) {
             }
         }
     }
+    // recalculate if nums contained negative numbers - no discarding numbers while sorting
+    return twoSum(oldnums, target, 1000000000);
+
+    /*
+     * fastest of the merge sort and binary search algorithms
+     *
+     * Runtime: 1420 ms, faster than 5.01% of JavaScript online submissions for Two Sum.
+     * Memory Usage: 55.9 MB, less than 5.13% of JavaScript online submissions for Two Sum.
+     */
 };

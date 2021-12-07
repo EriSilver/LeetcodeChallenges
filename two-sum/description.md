@@ -1,10 +1,10 @@
 # [1. Two Sum](https://leetcode.com/problems/two-sum/)    
 
 All time:    
-Accepted:
-5,364,555    
+Accepted: 
+5,449,801     
 Submissions: 
-11,205,460
+11,373,021      
 _____________________
 Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.    
     
