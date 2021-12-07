@@ -7,23 +7,26 @@ class Solution(object):
         newS = ""
         maxLen = 0
         maxStr = ""
+        newSFirstIndex = 0
         sLen = len(s)
         c = 0 
         
         while c < sLen:
-            if s[c] in newS:
+            charIndex = s.rfind(s[c], newSFirstIndex, c)
+            if charIndex > -1:
                 newSLen = len(newS)
                 if newSLen > maxLen:
                     maxLen = newSLen
                     maxStr = newS
                 newS = ""
-                c = s.rindex(s[c], 0, c) + 1
+                c = charIndex + 1
+                newSFirstIndex = c
             
             newS += s[c]
             c += 1
         
         newLen = len(newS)
-        if newLen > maxLen:
+        if newLen > maxLen: 
             return newLen
         return maxLen
 
@@ -32,6 +35,6 @@ class Solution(object):
     Accepted: 2,741,422
     Submissions: 8,429,528
 
-    Runtime: 947 ms, faster than 13.71% of Python online submissions for Longest Substring Without Repeating Characters.
-    Memory Usage: 13.6 MB, less than 88.44% of Python online submissions for Longest Substring Without Repeating Characters.
+    Runtime: 940 ms, faster than 13.73% of Python online submissions for Longest Substring Without Repeating Characters.
+    Memory Usage: 13.8 MB, less than 51.07% of Python online submissions for Longest Substring Without Repeating Characters.
 '''
