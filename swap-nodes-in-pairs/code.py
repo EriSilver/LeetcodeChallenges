@@ -24,7 +24,7 @@ class Solution(object):
                 if prev:
                     prev.next = two
 
-                if one:
+                if one.next:
                     prev = one
                     one = one.next
 
@@ -35,6 +35,6 @@ ATT TIME:
 Accepted: 727,972
 Submissions: 1,293,441
 
-Runtime: 20 ms, faster than 61.50% of Python online submissions for Swap Nodes in Pairs.
-Memory Usage: 13.3 MB, less than 85.95% of Python online submissions for Swap Nodes in Pairs.
+Runtime: 16 ms, faster than 84.91% of Python online submissions for Swap Nodes in Pairs.
+Memory Usage: 13.4 MB, less than 85.95% of Python online submissions for Swap Nodes in Pairs.
 """
