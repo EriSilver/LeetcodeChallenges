@@ -1,4 +1,10 @@
 class Solution(object):
+    def smallN(self, n, div=0):
+        if n < 1000:
+            return n, div
+        
+        return self.smallN(n/10, div+10)
+        
     def myPow(self, x, n):
         """
         :type x: float
@@ -7,19 +13,32 @@ class Solution(object):
         """
         s = 1
         neg = n < 0
+        
         if neg:
             n = -n
-        i = 1
-        while i <= n:
+            
+        newN, div = self.smallN(n)
+        i = 0
+        while i < newN:
             s *= x
             i += 1
             
-        return 1/s if neg else s
+        i = 0
+        newS = s
+        if div:
+            while i < div + 1:
+                newS *= s
+                i += 1
+            
+        return 1/newS if neg else newS
 
 '''
-    doesn't work when n is very big number
+    Modified for big nums of n
 
-    Failed when 
-    x = 0.00001
-    n = 2147483647
+    Failed here: 
+    x = 1.00012
+    n = 1024
+
+    Output: 1.15820
+    Expected: 1.13074
 '''
