@@ -1,9 +1,13 @@
 class Solution(object):
     def smallN(self, n, div=0):
-        if n < 1000:
+        x = 10
+        while (n % x) > 0 and x > 1:
+            x -= 1
+            
+        if n < 1000 or x == 1:
             return n, div
         
-        return self.smallN(n/10, div+10)
+        return self.smallN(n/x, div+x)
         
     def myPow(self, x, n):
         """
@@ -11,6 +15,11 @@ class Solution(object):
         :type n: int
         :rtype: float
         """
+        if n == 0:
+            return 1
+        if (-0.001 <= x <= 0.001) and not(-2 <= n <= 2):
+            return 0
+            
         s = 1
         neg = n < 0
         
@@ -22,11 +31,11 @@ class Solution(object):
         while i < newN:
             s *= x
             i += 1
-            
-        i = 0
+        
         newS = s
         if div:
-            while i < div + 1:
+            i = 1
+            while i < div:
                 newS *= s
                 i += 1
             
@@ -36,9 +45,30 @@ class Solution(object):
     Modified for big nums of n
 
     Failed here: 
-    x = 1.00012
-    n = 1024
+    x = 1.00001
+    n = 123456
 
     Output: 1.15820
     Expected: 1.13074
 '''
+
+"""
+test examples:
+1.00001
+123456
+
+1.00012
+1024
+2.00000
+10
+0.00001
+2147483647
+2.10000
+3
+2.00000
+-2
+0.44528
+0
+0.05930
+2
+"""
