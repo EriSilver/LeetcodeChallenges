@@ -1,14 +1,13 @@
 class Solution(object):
-    def smallN(self, n, div=0, x=0):
+    def smallN(self, n, div=1, x=0):
         if not x:
-            x = 10
+            x = 5
             while (n % x) > 0 and x > 1:
                 x -= 1
             
         if n < 1000 or x == 1 or (x and (n % x) > 0):
             return n, div 
-
-        return self.smallN(n/x , div + x, x)
+        return self.smallN(n/x , div * x, x)
         
     def myPow(self, x, n):
         """
@@ -16,6 +15,13 @@ class Solution(object):
         :type n: int
         :rtype: float
         """
+        if x == 0 or x == 1:
+            return x
+        if x == -1:
+            if n % 2 == 0:
+                return 1
+            else:
+                return -1
         if n == 0:
             return 1
         if (-0.001 <= x <= 0.001) and not(-2 <= n <= 2):
@@ -34,7 +40,7 @@ class Solution(object):
             i += 1
         
         newS = s
-        if div:
+        if div != 1:
             i = 1
             while i < div:
                 newS *= s
@@ -43,23 +49,22 @@ class Solution(object):
         return 1/newS if neg else newS
 
 '''
-    Modified for big nums of n
+    Runtime: 284 ms, faster than 5.07% of Python online submissions for Pow(x, n).
+    Memory Usage: 13.4 MB, less than 71.36% of Python online submissions for Pow(x, n).
 
-    the problem is adding 2 divs (second recursion in smallN)
-
-    Failed here: 
-    x = 1.00001
-    n = 123456
-
-    Output: 1.15820
-    Expected: 1.13074
+    ALL TIME:
+    Accepted: 777,829
+    Submissions: 2,448,314
 '''
 
 """
 test examples:
+-1.00000
+2147483647
+1.00000
+2147483647
 1.00001
 123456
-
 1.00012
 20502
 1.00012

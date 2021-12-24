@@ -1,8 +1,8 @@
 # [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
 ## MEDIUM
 ALL TIME: 
-Accepted: 773,929
-Submissions: 2,436,864
+Accepted: 777,829
+Submissions: 2,448,314
 __________
 
 Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
